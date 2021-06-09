@@ -4,11 +4,11 @@ orbs:
   ruby: circleci/ruby@1.1.0
   node: circleci/node@2
 
-jobs:
+jobs: ## jonはステップの塊  jobs = build test 
   build:
-    docker:
+    docker:  ## 実行環境
       - image: cimg/ruby:2.7-node
-    steps:
+    steps: ## stepの塊がjob
       - checkout
       - ruby/install-deps
       # Store bundle cache
@@ -17,21 +17,21 @@ jobs:
           cache-key: "yarn.lock"
   test:
     parallelism: 3
-    docker:
+    docker: ## ジョブ毎に実行環境を指定するのか
       - image: cimg/ruby:2.7-node
       - image: circleci/postgres:9.5-alpine
         environment:
           POSTGRES_USER: circleci-demo-ruby
           POSTGRES_DB: rails_blog_test
           POSTGRES_PASSWORD: ""
-    environment:
+    environment: ## 環境変数
       BUNDLE_JOBS: "3"
       BUNDLE_RETRY: "3"
       PGHOST: 127.0.0.1
       PGUSER: circleci-demo-ruby
       PGPASSWORD: ""
       RAILS_ENV: test
-    steps:
+    steps: ## testのstep
       - checkout
       - ruby/install-deps
       - node/install-packages:
