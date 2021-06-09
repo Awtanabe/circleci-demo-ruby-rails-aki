@@ -37,9 +37,6 @@ jobs: ## jonはステップの塊  jobs = build test
       - node/install-packages:
           pkg-manager: yarn
           cache-key: "yarn.lock"
-      - run:
-          name: Database setup
-          command: bundle exec rails db:create
       # Run rspec in parallel
       # - ruby/rspec-test ## これらはciにorbsが
       - run:
