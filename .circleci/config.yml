@@ -44,7 +44,10 @@ jobs: ## jonはステップの塊  jobs = build test
           name: Database setup
           command: bundle exec rails db:schema:load --trace
       # Run rspec in parallel
-      - ruby/rspec-test ## これらはciにorbsが
+      # - ruby/rspec-test ## これらはciにorbsが
+      - run:
+          name: rspec test
+          command: bundle exec rspec
       - ruby/rubocop-check
 
 # ジョブの実行順番を決める
